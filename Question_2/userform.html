@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script src="bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                alert("ready");
+                $("#no").blur(function () {
+                    var url = "http://localhost:9000/getusername";
+                    var name = $("#no").val();
+                    $.post(url, { uname: name }, function (data, status) {
+                        if (status == "success")
+                        console.log(data);
+                        {
+                            var emps = JSON.parse(data);
+                            console.log(emps.length);
+                            str = ""
+                            // for (i = 0; i < emps.length; i++) 
+                            // {
+                            //     str += "<option>"+emps[0].username+"</option>";
+                            //     str += "<option>"+emps[1].username+"</option>";
+                            //     str += "<option>"+emps[2].username+"</option>";
+                            //     str += "<option>"+emps[3].username+"</option>";
+                            // }
+                            str = "<select name='Selectname' id='box'>"
+                            str += "<option> Select Username </option>"
+                            emps.forEach(function (v)
+                            {
+                                str += "<option>"+v.username+"</option>";
+                            });
+                            //  str +="</select>"
+                            console.log(str);
+                            $("#users").html(str);
+                            
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <table>
+        <form action="">
+            <tr>
+                <td>From: </td>
+                <td><input type="text" id="no" name="from"/></td>
+            </tr>
+            <tr>
+                <td>To: </td>
+                <td>
+                    <!-- <select name="Selectname" id="box">
+                    <option value="">Select name</option>
+                    <option id="users"></option>
+                    <span id="users"></span>
+                </select> -->
+                <!-- <select name='Selectname' id='box'> -->
+                <span id="users"></span>
+            </select>
+
+            </td>
+            </tr>
+            <tr>
+                <td>Message: </td>
+                <td><textarea name="" id="" cols="" rows="1"></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="Submit" class="btn btn-primary" id="b1"/></td>
+            </tr>
+               
+        </form>
+    </table>
+    </body>
+</html>
